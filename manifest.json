@@ -1,0 +1,10 @@
+{
+  "name": "RYZEN LUCKY",
+  "short_name": "Lucky Spin",
+  "description": "แอปวงล้อสุ่ม RYZEN LUCKY",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#050914",
+  "theme_color": "#168cff",
+  "orientation": "portrait"
+}
