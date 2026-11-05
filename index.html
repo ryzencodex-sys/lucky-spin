@@ -1,0 +1,498 @@
+<!DOCTYPE html><html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>RYZEN LUCKY</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+<link rel="stylesheet" href="style.css">
+
+</head><body><!-- =========================
+     LOADING SCREEN
+========================== -->
+
+<div id="loadingScreen" class="loading-screen">
+
+    <div class="loading-content">
+
+        <div class="loading-spinner"></div>
+
+        <h1>RYZEN LUCKY</h1>
+
+        <p>กำลังเตรียมระบบสุ่ม...</p>
+
+        <div class="loading-bar">
+            <div
+                id="loadingProgress"
+                class="loading-progress"
+            ></div>
+        </div>
+
+        <span id="loadingPercent">
+            0%
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MAIN APP
+========================== -->
+
+<main class="app-container">
+
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🎡
+            </div>
+
+            <div class="logo-text">
+
+                <h1>
+                    RYZEN LUCKY
+                </h1>
+
+                <p>
+                    ระบบสุ่มและจับรางวัล
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="participant-counter">
+
+            <span>
+                ผู้เข้าร่วม
+            </span>
+
+            <strong id="participantCount">
+                0
+            </strong>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <section class="main-content">
+
+
+        <!-- WHEEL -->
+
+        <section class="wheel-section">
+
+            <div class="wheel-title">
+
+                <span class="small-title">
+                    RANDOM SYSTEM
+                </span>
+
+                <h2 id="wheelTitle">
+                    หมุนเพื่อค้นหาผู้โชคดี
+                </h2>
+
+                <button
+                    id="editTitleButton"
+                    class="edit-title-button"
+                >
+                    ✏️ เปลี่ยนชื่อวงล้อ
+                </button>
+
+            </div>
+
+
+            <!-- WHEEL WRAPPER -->
+
+            <div class="wheel-wrapper">
+
+                <div class="pointer"></div>
+
+                <canvas
+                    id="wheelCanvas"
+                    width="700"
+                    height="700"
+                ></canvas>
+
+
+                <button
+                    id="spinButton"
+                    class="spin-button"
+                >
+
+                    <span class="spin-icon">
+                        ▶
+                    </span>
+
+                    <span class="spin-text">
+                        SPIN
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="wheel-status">
+
+                <div class="status-dot"></div>
+
+                <span id="statusText">
+                    พร้อมสำหรับการสุ่ม
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTROL PANEL -->
+
+        <aside class="control-panel">
+
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="panel-small-title">
+                        MANAGEMENT
+                    </span>
+
+                    <h2>
+                        จัดการรายชื่อ
+                    </h2>
+
+                </div>
+
+
+                <button
+                    id="clearAllButton"
+                    class="clear-button"
+                >
+                    ล้างทั้งหมด
+                </button>
+
+            </div>
+
+
+            <!-- ADD ONE NAME -->
+
+            <div class="add-name-box">
+
+                <label for="nameInput">
+                    เพิ่มผู้เข้าร่วม
+                </label>
+
+
+                <div class="input-group">
+
+                    <input
+                        type="text"
+                        id="nameInput"
+                        placeholder="พิมพ์ชื่อผู้เข้าร่วม..."
+                        maxlength="30"
+                    >
+
+                    <button id="addNameButton">
+                        เพิ่ม
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ADD MULTIPLE -->
+
+            <div class="bulk-add-box">
+
+                <label for="bulkInput">
+                    เพิ่มหลายชื่อ
+                </label>
+
+
+                <textarea
+                    id="bulkInput"
+                    placeholder="ใส่ชื่อโดยแยกแต่ละชื่อด้วยการขึ้นบรรทัดใหม่..."
+                ></textarea>
+
+
+                <button
+                    id="bulkAddButton"
+                    class="bulk-button"
+                >
+                    + เพิ่มรายชื่อทั้งหมด
+                </button>
+
+            </div>
+
+
+            <!-- NAME LIST -->
+
+            <div class="list-header">
+
+                <span>
+                    รายชื่อผู้เข้าร่วม
+                </span>
+
+                <span id="listCount">
+                    0 คน
+                </span>
+
+            </div>
+
+
+            <div
+                id="nameList"
+                class="name-list"
+            ></div>
+
+
+            <!-- SETTINGS -->
+
+            <div class="settings-box">
+
+
+                <!-- REMOVE WINNER -->
+
+                <div class="setting-row">
+
+                    <div class="setting-text">
+
+                        <strong>
+                            ลบผู้ชนะหลังสุ่ม
+                        </strong>
+
+                        <span>
+                            ผู้ชนะจะไม่ถูกสุ่มซ้ำ
+                        </span>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="removeWinner"
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- SOUND -->
+
+                <div class="setting-row">
+
+                    <div class="setting-text">
+
+                        <strong>
+                            เปิดเสียง
+                        </strong>
+
+                        <span>
+                            เสียงขณะวงล้อหมุน
+                        </span>
+
+                    </div>
+
+
+                    <label class="switch">
+
+                        <input
+                            type="checkbox"
+                            id="soundToggle"
+                            checked
+                        >
+
+                        <span class="slider"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+
+    <!-- WINNER HISTORY -->
+
+    <section class="winner-history-section">
+
+        <div class="history-header">
+
+            <div>
+
+                <span class="panel-small-title">
+                    HISTORY
+                </span>
+
+                <h2>
+                    ผู้โชคดีที่ผ่านมา
+                </h2>
+
+            </div>
+
+
+            <button id="clearHistoryButton">
+                ล้างประวัติ
+            </button>
+
+        </div>
+
+
+        <div
+            id="winnerHistory"
+            class="winner-history"
+        ></div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            🎡 RYZEN LUCKY SPIN 
+        </p>
+
+    </footer>
+
+</main>
+
+
+<!-- =========================
+     WINNER MODAL
+========================== -->
+
+<div
+    id="winnerModal"
+    class="winner-modal"
+>
+
+    <div class="modal-overlay"></div>
+
+
+    <div class="winner-modal-content">
+
+        <div class="trophy">
+            🏆
+        </div>
+
+
+        <span class="winner-label">
+            🎉 ผู้โชคดีคือ 🎉
+        </span>
+
+
+        <h2 id="winnerName">
+            ผู้โชคดี
+        </h2>
+
+
+        <p>
+            ขอแสดงความยินดีด้วย!
+        </p>
+
+
+        <button id="closeModalButton">
+            ดำเนินการต่อ
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     CHANGE TITLE MODAL
+========================== -->
+
+<div
+    id="titleModal"
+    class="title-modal"
+>
+
+    <div class="title-modal-overlay"></div>
+
+
+    <div class="title-modal-content">
+
+        <h2>
+            ✏️ เปลี่ยนชื่อวงล้อ
+        </h2>
+
+        <p>
+            ตั้งชื่อวงล้อตามที่คุณต้องการ
+        </p>
+
+
+        <input
+            type="text"
+            id="wheelTitleInput"
+            placeholder="เช่น สุ่มแจกเงิน 💰"
+            maxlength="50"
+        >
+
+
+        <div class="title-modal-buttons">
+
+            <button
+                id="cancelTitleButton"
+                class="cancel-title-button"
+            >
+                ยกเลิก
+            </button>
+
+
+            <button
+                id="saveTitleButton"
+                class="save-title-button"
+            >
+                บันทึก
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- CONFETTI -->
+
+<canvas id="confettiCanvas"></canvas>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
